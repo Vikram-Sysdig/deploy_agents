@@ -1,1 +1,4 @@
+select name, feed_name, count, last_sync, last_update from feed_groups; 
+
+
 UPDATE feeds.vulnerability SET processed_date = CURRENT_TIMESTAMP where processed_date>CURRENT_TIMESTAMP - INTERVAL '5 day';
