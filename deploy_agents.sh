@@ -77,10 +77,10 @@ function deploy_agents() {
 
 function openshift_prep() {
   broadcast 'g' "Labeling Nodes for Agent Deployment"
-  oc label node --all "app=sysdig" --overwrite
+  oc label node --all "sysdig-agent=true" --overwrite
 
   broadcast 'g' "Creating project sysdig-agents"
-  oc adm new-project sysdig-agents --node-selector='app=sysdig'
+  oc adm new-project sysdig-agents --node-selector='sysdig-agent=true'
 
   broadcast 'g' "Giving root and privileged access to sysdig-agent in project sysdig-agents"
   oc adm policy add-scc-to-user anyuid -n sysdig-agents -z sysdig-agent
