@@ -1,3 +1,8 @@
+anchore-cli --u $ANCHORE_ADMIN_USER --p $ANCHORE_ADMIN_PASSWORD system feeds sync
+
+
+
+
 select name, feed_name, count, last_sync, last_update from feed_groups; 
 
 
