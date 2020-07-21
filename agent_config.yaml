@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sysdig-agent
+data:
+  dragent.yaml: |
+    ### Agent tags
+     tags: 
+
+    # Sysdig collector address
+     collector: <INSERT COLLECTOR URL>
+
+     #Collector TCP port
+     collector_port: 443
+
+     #Whether collector accepts ssl
+     ssl: true
+
+    # collector certificate validation
+     ssl_verify_certificate: false
+     #log:
+     #  file_priority: debug 
+     new_k8s: true
+     k8s_cluster_name: <INSERT NAME HERE>
+     k8s_extra_resources:
+      include:
+        - services
+        - resourcequotas
+        - persistentvolumes
+        - persistentvolumeclaims
+        - horizontalpodautoscalers
+     snaplen: 512
+     app_checks_limit: 1000
+     prometheus:
+       enabled: true
+       interval: 10
+       log_errors: true
+       max_metrics: 3000
+       max_metrics_per_process: 2000
+       max_tags_per_metric: 200
+       histograms: true
+     jmx:
+       limit: 3000
+     statsd:
+       limit: 1000
+     app_checks_always_send: true
+
+     resources:
+       limits:
+         cpu: 6000m
+         memory: 5Gi
+       requests:
+         cpu: 1000m
+         memory: 1024Mi
+     
+     watchdog:
+       max_memory_usage_mb: 2048
+       max_memory_usage_subprocesses:
+         sdchecks: 128
+         sdjagent: 256
+         mountedfs_reader: 32
+         statsite_forwarder: 32
+         cointerface: 4096
+
+     security:
+       k8s_audit_server_url: 0.0.0.0
+       k8s_audit_server_port: 7765
+       enabled: true
+     commandlines_capture:
+       enabled: true
+     nmemdump:
+       enabled: true
