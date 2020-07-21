@@ -1,0 +1,1 @@
+UPDATE feeds.vulnerability SET processed_date = CURRENT_TIMESTAMP where processed_date>CURRENT_TIMESTAMP - INTERVAL '5 day';
